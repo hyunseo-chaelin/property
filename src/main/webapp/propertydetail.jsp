@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="dto.Property" %>
-<jsp:useBean id="propertyDAO" class="dao.PropertyRepository" scope="session" />
+<%@ page import="dao.PropertyRepository" %>
 <%@ include file="menu.jsp" %>
 <!DOCTYPE html>
 <html lang="ko" data-bs-theme="auto">
@@ -16,8 +16,10 @@
     
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="stylesheet" href="./resources/css/bootstrap.min.css" />
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
     
@@ -51,14 +53,15 @@
 <body>
 <%
 	String id=request.getParameter("id");
-	Property property=propertyDAO.getPropertyById(id);
+	PropertyRepository dao=PropertyRepository.getInstance();
+	Property property=dao.getPropertyById(id);
 %>
     <!-- Product section-->
     <section class="py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
             
-                <div class="col-md-5"><img class="card-img-top mb-5 mb-md-0" src="<%= request.getContextPath() %>/resources/images/<%=property.getFilename() %>" alt="<%= property.getName() %>" /></div>
+                <div class="col-md-5"><img class="card-img-top mb-5 mb-md-0" src="./resources/images/<%=property.getFilename() %>" alt="<%= property.getName() %>" /></div>
                 
                 
                 
