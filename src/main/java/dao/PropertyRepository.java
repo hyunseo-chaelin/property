@@ -17,7 +17,7 @@ public class PropertyRepository {
     }
     
     public PropertyRepository() {
-        Property property1 = new Property("Prop1234", "빌딩", "3억");
+        Property property1 = new Property("Prop1234", "프팰", "3억");
         property1.setDescription("빌딩이다 ");
         property1.setCondition("매매");
         property1.setReleaseDate("2022/10/06");
@@ -26,8 +26,9 @@ public class PropertyRepository {
         property1.setCity("seoul");
         property1.setDistrict("강동구");
         property1.setArea("153.98/153.98");
+        property1.setKind("아파트");
         
-        Property property2 = new Property("Prop4567", "아파트", "5억");
+        Property property2 = new Property("Prop4567", "롯캐", "5억");
         property2.setDescription("아파트다");
         property2.setCondition("전세");
         property2.setReleaseDate("2023/01/01");

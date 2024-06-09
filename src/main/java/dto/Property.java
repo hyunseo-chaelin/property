@@ -10,9 +10,23 @@ public class Property implements Serializable {
 	private String name; // 매물 이름
 	private String unitPrice; // 매물 가격
 	private String description; // 설명
+	private String city; // 위치
 	private String district; // 위치
 	private String area; // 면적
+	private String releaseDate; // 매물 나온 날짜
+	private String condition; // 매매, 전세, 월세
+	private String filename; // 사진
+	private boolean bookmark; // 찜하기
+	private String kind;
 	
+	public String getKind() {
+		return kind;
+	}
+
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
+
 	public String getArea() {
 		return area;
 	}
@@ -28,11 +42,6 @@ public class Property implements Serializable {
 	public void setDistrict(String district) {
 		this.district = district;
 	}
-
-	private String releaseDate; // 매물 나온 날짜
-	private String condition; // 매매, 전세, 월세
-	private String filename; // 사진
-	private boolean bookmark; // 찜하기
 	
     public String getCity() {
 		return city;
@@ -42,7 +51,6 @@ public class Property implements Serializable {
 		this.city = city;
 	}
 
-	private String city; // 시 정보 추가
 
 	public String getFilename() {
 		return filename;
