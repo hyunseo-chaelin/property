@@ -13,8 +13,8 @@
             <p class="mb-1">&copy; 양평 공인중개사 사무소</p>
         </div>
         <ul class="list-inline text-center">
-    		<li class="list-inline-item"><a href="javascript:void(0)">한국어</a></li>
-    		<li class="list-inline-item"><a href="javascript:void(0)">영어</a></li>
+    		<li class="list-inline-item"><a href="?language=ko">Korean</a></li>
+    		<li class="list-inline-item"><a href="?language=en">English</a></li>
   		</ul>
         <div class="container">
             <p class="mb-0" style="position: fixed; bottom: 20px; right: 20px;">

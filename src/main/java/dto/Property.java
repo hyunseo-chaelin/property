@@ -18,7 +18,16 @@ public class Property implements Serializable {
 	private String filename; // 사진
 	private boolean bookmark; // 찜하기
 	private String kind;
-	
+	private int quantity;
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	public String getKind() {
 		return kind;
 	}

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ include file="../menu.jsp" %>
 <script type="text/javascript" src="./resources/js/validation.js"></script>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!doctype html>
 <html lang="ko" data-bs-theme="auto">
@@ -215,6 +216,8 @@
     <link href="checkout.css" rel="stylesheet">
 </head>
 <body class="bg-body-tertiary">
+<fmt:setLocale value='<%=request.getParameter("language") %>' />
+<fmt:bundle basename="bundle.message">
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
         <symbol id="check2" viewBox="0 0 16 16">
             <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
@@ -231,23 +234,23 @@
         </symbol>
     </svg>
     
-    <form name="newProperty" action="./processAddproperty.jsp" class="form-horizontal" method="post" enctype="multipart/form-data">
     <div class="container">
+    <form name="newProperty" action="./processAddproperty.jsp" class="form-horizontal" method="post" enctype="multipart/form-data">
       <div class="py-5 text-center">
-        <h2>매물 등록</h2>
+        <h2><fmt:message key="title" /></h2>
       </div>
       <div class="container">
     <div class="container form-container">
         <div class="row my-3">
                 <div class="row g-3 mb-3">
                     <div class="col-12">
-                        <label class="form-label">매물명</label>
+                        <label class="form-label"><fmt:message key="name" /></label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="property Name" value="" required>
                     </div>
                 </div>
                 <div class="row g-3 mb-3">
                     <div class="col-12">
-                        <label class="form-label">매물 ID</label>
+                        <label class="form-label"><fmt:message key="propertyID" /></label>
                         <div class="input-group">
                             <input type="text" class="form-control" name="propertyId" id="propertyId" placeholder="propertyID" required>
                             <button class="btn btn-outline-secondary" type="button" id="propertyID-check">중복 검색</button>
@@ -259,15 +262,15 @@
                 </div>
                 <div class="row g-3 mb-3">
                     <div class="col-12">
-                        <label class="form-label">지역 선택</label>
+                        <label for="cityselect" class="form-label"><fmt:message key="propertylocation" /></label>
                         <div class="d-flex">
                             <select class="form-select form-select-sm me-2" id="city" name="city" required onchange="updateDistricts()">
-                                <option value="">시/도 선택</option>
-                                <option value="seoul">서울시</option>
-                                <option value="gyeonggi">경기도</option>
+                                <option value=""><fmt:message key="cityselect" /></option>
+                                <option value="seoul"><fmt:message key="seoul" /></option>
+                                <option value="gyeonggi"><fmt:message key="gyeonggi" /></option>
                             </select>
                             <select class="form-select form-select-sm me-2" id="district" name="district" required>
-                                <option value="">구/군 선택</option>
+                                <option value=""><fmt:message key="districtselect" /></option>
                             </select>
 <!--                             <button type="submit" class="btn btn-sm btn-outline-secondary">확인</button>  -->
                         </div>
@@ -275,94 +278,70 @@
                 </div>
                 <div class="row g-3 mb-3">
                     <div class="col-12">
-                        <label for="condition" class="form-label">매매 형태<span class="text-body-secondary"></span></label>
+                        <label for="condition" class="form-label"><fmt:message key="condition" /><span class="text-body-secondary"></span></label>
                         <div class="mt-2">
                             <div class="d-inline-block me-3">
                                 <input type="radio" name="condition" value="매매" id="sale">
-                                <label for="sale">매매</label>
+                                <label for="sale"><fmt:message key="sale" /></label>
                             </div>
                             <div class="d-inline-block me-3">
                                 <input type="radio" name="condition" value="전세" id="jeonse">
-                                <label for="jeonse">전세</label>
+                                <label for="jeonse"><fmt:message key="jeonse" /></label>
                             </div>
                             <div class="d-inline-block me-3">
-                                <input type="radio" name="condition" value="월세" id="monthly">
-                                <label for="monthly">월세</label>
-                            </div>
-                            <div class="d-inline-block me-3">
-                                <input type="radio" name="condition" value="렌트" id="rent">
-                                <label for="rent">렌트</label>
-                            </div>
-                            <div class="d-inline-block me-3">
-                                <input type="radio" name="condition" value="분양" id="pre-sale">
-                                <label for="pre-sale">분양</label>
-                            </div>
-                            <div class="d-inline-block me-3">
-                                <input type="radio" name="condition" value="급매" id="urgent-sale">
-                                <label for="urgent-sale">급매</label>
+                                <input type="radio" name="condition" value="월세/렌트" id="monthly">
+                                <label for="monthly"><fmt:message key="monthly/rent" /></label>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row g-3 mb-3">
                     <div class="col-12">
-                        <label for="kind" class="form-label">매매 종류<span class="text-body-secondary"></span></label>
+                        <label for="kind" class="form-label"><fmt:message key="kind" /><span class="text-body-secondary"></span></label>
                         <div class="mt-2">
                             <div class="d-inline-block me-3">
-                                <input type="radio" name="kind" value="고급빌라" id="sale">
-                                <label for="sale">고급빌라</label>
-                            </div>
-                            <div class="d-inline-block me-3">
-                                <input type="radio" name="kind" value="고급오피스텔" id="jeonse">
-                                <label for="jeonse">고급오피스텔</label>
-                            </div>
-                            <div class="d-inline-block me-3">
-                                <input type="radio" name="kind" value="단독주택" id="monthly">
-                                <label for="monthly">단독주택</label>
-                            </div>
-                            <div class="d-inline-block me-3">
                                 <input type="radio" name="kind" value="아파트" id="rent">
-                                <label for="rent">아파트</label>
+                                <label for="apartment"><fmt:message key="apartment" /></label>
                             </div>
                             <div class="d-inline-block me-3">
-                                <input type="radio" name="kind" value="타운하우스" id="pre-sale">
-                                <label for="pre-sale">타운하우스</label>
+                                <input type="radio" name="kind" value="상가" id="pre-sale">
+                                <label for="shoppingdistrict"><fmt:message key="shoppingdistrict" /></label>
                             </div>
                             <div class="d-inline-block me-3">
-                                <input type="radio" name="kind" value="펜트하우스" id="urgent-sale">
-                                <label for="urgent-sale">펜트하우스</label>
+                                <input type="radio" name="kind" value="주택/전원주택/상가주택" id="urgent-sale">
+                                <label for="house/countryhouse/flatswithshops"><fmt:message key="house/countryhouse/flatswithshops" /></label>
                             </div>
                             <div class="d-inline-block me-3">
-                                <input type="radio" name="kind" value="상업용건물" id="urgent-sale">
-                                <label for="urgent-sale">상업용건물</label>
+                                <input type="radio" name="kind" value="토지" id="urgent-sale">
+                                <label for="ground"><fmt:message key="ground" /></label>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row g-3 mb-3">
                     <div class="col-6">
-                        <label for="propertyprice" class="form-label">가격<span class="text-body-secondary"></span></label>
+                        <label for="propertyprice" class="form-label"><fmt:message key="unitPrice" /><span class="text-body-secondary"></span></label>
                         <input type="text" class="form-control custom-width mb-custom" name="unitPrice" id="unitPrice" placeholder="price" required>
                     </div>
                 </div>
                 <div class="col-6">
-                      <label for="area" class="form-label">면적<span class="text-body-secondary"></span></label>
-                      <input type="text" class="form-control custom-width mb-custom" id="area" name="area" placeholder="숫자/숫자" class="form-control">
+                      <label for="area" class="form-label"><fmt:message key="area" /><span class="text-body-secondary"></span></label>
+                      <input type="text" class="form-control custom-width mb-custom" id="area" name="area" placeholder="Land area / Total Land area" class="form-control">
                 </div>
                 <div class="row g-3 mb-3">
                     <div class="col-6">
-                        <label for="description" class="form-label">상세설명<span class="text-body-secondary"></span></label>
+                        <label for="description" class="form-label"><fmt:message key="description" /><span class="text-body-secondary"></span></label>
                         <textarea name="description" cols="50" rows="2" class=form-control id="description" name="description" placeholder="100자 이상 입력"> </textarea>
                     </div>
                 </div>
                 <div class="col-6">
-                      <label for="filename" class="form-label">이미지<span class="text-body-secondary"></span></label>
+                      <label for="filename" class="form-label"><fmt:message key="image" /><span class="text-body-secondary"></span></label>
                       <input type="file" class="form-control custom-width mb-custom" name="filename" id="filename" class="form-control">
                 </div>
                 </div>
                 <hr class="my-4">
                 <div class="d-flex gap-2">
-                    <input type="button" class="btn btn-primary flex-fill" value="등록" onclick="CheckAddProperty()">
+                    <input type="submit" class="btn btn-primary flex-fill" value="<fmt:message key="button" />" onclick="CheckAddProperty()">
                     <input type="reset" class="btn btn-primary flex-fill" value="취소">
                 </div>
                 <jsp:include page="footer.jsp" />
@@ -373,5 +352,6 @@
     <script src="checkout.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    </fmt:bundle>
 </body>
 </html>
