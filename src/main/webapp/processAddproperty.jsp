@@ -27,9 +27,9 @@
 	String bookmark=multi.getParameter("bookmark");
 	String kind=multi.getParameter("kind");
 	
-	Enumeration files=multi.getFileNames();
-	String fname=(String) files.nextElement();
-	String fileName=multi.getFilesystemName(fname);
+    Enumeration files = multi.getFileNames();
+    String fname = (String) files.nextElement();
+    String fileName = multi.getFilesystemName(fname);
 	
 	PropertyRepository dao=PropertyRepository.getInstance();
 	Property newProperty=new Property();
@@ -44,6 +44,7 @@
 	newProperty.setDistrict(district);
 	newProperty.setFilename(filename);
 	newProperty.setArea(area);
+	newProperty.setFilename(fileName); // 파일 이름을 올바르게 설정
 	
 	dao.addProperty(newProperty);
 	

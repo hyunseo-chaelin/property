@@ -11,17 +11,31 @@
     <meta name="author" content="" />
     <title>Detail</title>
     
+    <script type="text/javascript">
+        function addToBookmark(propertyId) {
+            if (confirm("찜한 매물에 추가하시겠습니까?")) {
+                if (confirm("찜한 매물 페이지로 이동하시겠습니까?")) {
+                    window.location.href = "addBookmark.jsp?id=" + propertyId;
+                } else {
+                    document.addForm.reset();
+                }
+            }
+        }
+    </script>
+    
     <!-- Bootstrap CSS 파일 포함 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     
-    <!-- Favicon-->
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <link rel="stylesheet" href="./resources/css/bootstrap.min.css" />
-    <!-- Bootstrap icons-->
+    
+    <!-- Bootstrap icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     
-    <!-- Core theme CSS (includes Bootstrap)-->
+    <!-- Core theme CSS (includes Bootstrap) -->
     <link href="css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
         .form-group {
@@ -52,54 +66,54 @@
 </head>
 <body>
 <%
-	String id=request.getParameter("id");
-	PropertyRepository dao=PropertyRepository.getInstance();
-	Property property=dao.getPropertyById(id);
+    String id = request.getParameter("id");
+    PropertyRepository dao = PropertyRepository.getInstance();
+    Property property = dao.getPropertyById(id);
 %>
-    <!-- Product section-->
-    <section class="py-5">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="row gx-4 gx-lg-5 align-items-center">
-            
-                <div class="col-md-5"><img class="card-img-top mb-5 mb-md-0" src="./resources/images/<%=property.getFilename() %>" alt="<%= property.getName() %>" /></div>
-                
-                
-                
-                <div class="col-md-6">
-				<span class="px-2 py-1"><%= property.getDistrict() %></span>
-                    <h1 class="display-5 fw-bolder"><%=property.getName() %></h1>
-                    <div class="fs-5 mb-5">
-                        <div class="form-group">
-                        <span class="condition" id="condition"><%=property.getCondition() %> </span>
-                            <span class="price" id="price"><%=property.getUnitPrice() %></span>
+<!-- Product section -->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-5">
+                <img class="card-img-top mb-5 mb-md-0" src="./resources/images/<%=property.getFilename() %>" alt="<%= property.getName() %>" />
+            </div>
+            <div class="col-md-6">
+                <span class="px-2 py-1"><%= property.getDistrict() %></span>
+                <h1 class="display-5 fw-bolder"><%=property.getName() %></h1>
+                <div class="fs-5 mb-5">
+                    <div class="form-group">
+                        <span class="condition" id="condition"><%=property.getCondition() %></span>
+                        <span class="price" id="price"><%=property.getUnitPrice() %></span>
+                    </div>
+                </div>
+                <p class="lead"><%=property.getDescription() %></p>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <form name="addForm" action="./addBookmark.jsp?id=<%=property.getPropertyID() %>" method="post">
+                                    <a href="./propertyforsale.jsp?id=<%= property.getPropertyID() %>" class="btn btn-sm btn-outline-secondary me-2" style="font-size: 16px;">매물 목록 &raquo;</a>                
+                                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-dark" onclick="addToBookmark('<%= property.getPropertyID() %>')">
+                                        <i class="fa fa-heart" style="color: red;"></i> 찜하기
+                                    </a>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                    <p class="lead"><%=property.getDescription() %></p>
-     <div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="d-flex">
-<a href="./propertyforsale.jsp?id=<%= property.getPropertyID() %>" class="btn btn-sm btn-outline-secondary me-2" style="font-size: 16px;">매물 목록 &raquo;</a>                <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                    <i class="bi bi-heart-fill me-1" style="color: red;"></i>
-                    찜하기
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
                 </div>
             </div>
         </div>
-    </section>
-    
+    </div>
+</section>
+
 <jsp:include page="footer.jsp" />
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    
+
+<!-- Bootstrap core JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS -->
+<script src="js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
 </body>
 </html>

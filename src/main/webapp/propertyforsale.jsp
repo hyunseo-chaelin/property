@@ -17,6 +17,17 @@
     <meta name="generator" content="Hugo 0.122.0">
     <title>Propertyforsale</title>
     
+<script type="text/javascript">
+    function addToBookmark(propertyId) {
+        if (confirm("찜한 매물에 추가하시겠습니까?")) 
+        	if (confirm("찜한 매물 페이지로 이동하시겠습니까?"))
+                window.location.href = "addBookmark.jsp?id=" + propertyId;
+        else {
+        	document.addForm.reset();
+        }
+    }
+</script>
+    
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 	<link rel="stylesheet" href="./resources/css/bootstrap.min.css" />
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
@@ -30,6 +41,7 @@
     <link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json">
     <link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
     <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico">
+    
     <meta name="theme-color" content="#712cf9">
 
     <style>
@@ -270,13 +282,13 @@
                 %>
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="card mb-4 shadow-sm">
-                        <img src="./resources/images/<%=property.getFilename() %>" class="card-img-top" alt="<%= property.getName() %>"/>
+                        <img src="<%= request.getContextPath() %>/resources/images/<%= property.getFilename() %>" class="card-img-top" alt="<%= property.getName() %>"/>
                         <div class="card-body">
 						<h5 class="card-title">
   						<span style="font-size: 0.8em;"><%= property.getCondition() %> <%= property.getUnitPrice() %></span><br>
   						<b><%= property.getName() %></b>
 						</h5>
-                            <p class="card-text"><%= property.getDescription() %></p>
+                            <p class="card-text"><%= property.getDescription().substring(1,60) %></p>
 							<p class="card-text">
   							<span class="transparent-box px-2 py-1 border rounded"><%= property.getDistrict() %></span>
   							<span class="transparent-box px-2 py-1 border rounded"><%= property.getArea() %>㎡</span>
@@ -285,11 +297,13 @@
 
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
+                                <p> <form name="addForm" action="./addBookmark.jsp?id=<%=property.getPropertyID() %>" method="post">
                                     <a href="./propertydetail.jsp?id=<%= property.getPropertyID() %>" class="btn btn-sm btn-outline-secondary">자세히 보기 &raquo;</a>
                                 </div>
-							<a href="<%= request.getContextPath() %>/bookmark.jsp?id=<%= property.getPropertyID() %>" class="btn btn-sm btn-outline-dark" type="button">
-                  			<i class="fa fa-heart" style="color: red;"></i> 찜하기
-                			</a>
+							<a href="javascript:void(0);" class="btn btn-sm btn-outline-dark" onclick="addToBookmark('<%= property.getPropertyID() %>')">
+   						 	<i class="fa fa-heart" style="color: red;"></i> 찜하기
+							</a>
+									</form>
                             </div>
                         </div>
                     </div>
