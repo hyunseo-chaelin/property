@@ -4,7 +4,7 @@
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>소개 페이지</title>
+    <title>Info</title>
     <style>
         .section-title {
             margin-top: 40px;
@@ -15,13 +15,24 @@
             height: auto;
             margin-bottom: 20px;
         }
+        .office-images img {
+            width: 100%;
+            height: 300px; /* 고정된 높이 설정 */
+            object-fit: cover; /* 이미지를 비율에 맞게 조정 */
+            margin-bottom: 15px;
+        }
+        #map {
+            width: 100%;
+            height: 500px;
+            background-color: #eee;
+        }
     </style>
 </head>
 <body class="bg-body-tertiary">
     <div class="container mt-4">
         <!-- 대표 소개 섹션 -->
         <div id="ceo-introduction">
-            <h2 class="section-title">대표/공인중개사 소개</h2>
+            <h3 class="section-title">○ 대표/공인중개사 소개</h3>
             <img src="<%= request.getContextPath() %>/resources/images/info_ceo.png" alt="대표 소개 이미지" class="ceo-image">
             <div class="card mb-4">
                 <div class="card-body">
@@ -43,12 +54,30 @@
         
         <!-- 사무실 소개 섹션 -->
         <div id="office-introduction">
-            <h2 class="section-title">사무실 소개</h2>
+            <h3 class="section-title">○ 사무실 소개</h3>
             <div class="card mb-4">
                 <div class="card-body">
-                    <h5 class="card-title">사무실 위치 및 정보</h5>
+                    <!-- 사진 삽입 -->
+                     <div class="row office-images">
+                        <div class="col-md-4">
+                            <img src="<%= request.getContextPath() %>/resources/images/office1.jpg" alt="사무실 이미지 1">
+                        </div>
+                        <div class="col-md-4">
+                            <img src="<%= request.getContextPath() %>/resources/images/office2.jpg" alt="사무실 이미지 2">
+                        </div>
+                        <div class="col-md-4">
+                            <img src="<%= request.getContextPath() %>/resources/images/office3.jpg" alt="사무실 이미지 3">
+                        </div>
+                    </div>
                     <p class="card-text">
-                        사무실의 위치, 연락처, 주요 업무 등을 여기에 작성합니다.
+                    	<br />
+                    	- 2022년 1월 개업 
+                    	<br />
+                        - 남한강 뷰 양평휴먼빌리버파크 아파트 입구 상가 위치 
+                        <br />
+                        - 대기 시 착석 가능한 의자 구비 
+                        <br />
+                        - 상담 시 커피 및 간식 제공
                     </p>
                 </div>
             </div>
@@ -56,18 +85,14 @@
 
         <!-- 길 안내 섹션 -->
         <div id="directions">
-            <h2 class="section-title">길 안내</h2>
+            <h3 class="section-title">○ 길 안내</h3>
             <div class="card mb-4">
                 <div class="card-body">
-                    <h5 class="card-title">방문 방법</h5>
-                    <p class="card-text">
-                        사무실로 오는 방법을 설명합니다. 대중교통, 자동차 등 다양한 경로를 안내합니다.
-                    </p>
-                    <!-- 예시로 지도 삽입 -->
-                    <div id="map" style="width: 100%; height: 300px; background-color: #eee;">
-                        <!-- 여기에는 실제 지도를 삽입할 수 있습니다. 예: 구글 지도 API -->
-                        <p class="text-center">지도는 여기에 표시됩니다.</p>
-                    </div>
+                    <h5 class="card-title">주소: 12562 경기도 양평군 양평읍 양군로 310(창대리 696-2)</h5>
+                    <a href="https://map.naver.com/p/entry/place/1423129319?placePath=%2Fhome&c=15.00,0,0,0,dh" target="_blank">네이버 지도로 이동</a>
+                    <br />
+                    <br />
+                    <div id="map"></div>
                 </div>
             </div>
         </div>
@@ -75,5 +100,21 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <!-- 구글 지도 API 스크립트 -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhqDTkMRZbBl9jfLs57nSxJo2OO7cJVR0&callback=initMap"></script>
+    <script>
+        function initMap() {
+            var officeLocation = { lat: 37.493378, lng: 127.493594 }; // 네이버 지도에서 얻은 좌표
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: officeLocation
+            });
+            var marker = new google.maps.Marker({
+                position: officeLocation,
+                map: map
+            });
+        }
+    </script>
+    <jsp:include page="footer.jsp" />
 </body>
 </html>

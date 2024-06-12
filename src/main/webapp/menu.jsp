@@ -126,7 +126,8 @@
                         <li class="nav-item"><a class="nav-link" href="<c:url value="/propertyforsale.jsp"/>">매물 목록</a></li>
                         <li class="nav-item"><a class="nav-link" href="<c:url value="/bookmark.jsp"/>">찜한 매물</a></li>
                         <li class="nav-item"><a class="nav-link" href="<c:url value="/addProperty.jsp"/>">매물 등록</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">컨설팅</a></li>               
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/editProperty.jsp"/>">매물 수정</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/consulting.jsp"/>">컨설팅</a></li>               
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <c:choose>
