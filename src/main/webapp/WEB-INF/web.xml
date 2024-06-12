@@ -13,6 +13,7 @@ xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="https://jakar
 			<web-resource-name>property</web-resource-name>
 			<description></description>
 			<url-pattern>/addProperty.jsp</url-pattern>
+			<url-pattern>/editProperty.jsp</url-pattern>
 			<!-- 여긴 나중에 수정하면 ㄱㄱ
 			<url-pattern>/editBook.jsp</url-pattern>
 			-->

@@ -15,21 +15,9 @@ function CheckAddProperty() {
 		return false;
 	}
 	
-	if(unitPrice.value.length==0 || isNaN(unitPrice.value)) {
-		alert("[가격]\n숫자만 입력하세요");
-		unitPrice.focus();
-		return false;
+	if (!check(/^\d+(\.\d+)?\/\d+(\.\d+)?$/, area, "[면적]\n숫자/숫자 형식으로 입력하세요")) {
+    	return false;
 	}
-	
-	if(unitPrice.value < 0) {
-		alert("[가격]\n음수를 입력할 수 없습니다");
-		unitPrice.focus();
-		return false;
-	}
-	
-    if (!check(/^\d+\/\d+$/, area, "[면적]\n숫자/숫자 형식으로 입력하세요")) {
-        return false;
-    }
 	
 	if(description.value.length < 100) {
 		alert("[상세설명]\n최소 100자 이상 입력하세요");

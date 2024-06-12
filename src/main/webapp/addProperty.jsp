@@ -10,7 +10,7 @@
     <title>addProperty</title>
     <script>
     const districts = {
-        seoul: [
+        서울시: [
             { value: "강남구", text: "강남구" },
             { value: "강동구", text: "강동구" },
             { value: "강북구", text: "강북구" },
@@ -37,7 +37,7 @@
             { value: "중구", text: "중구" },
             { value: "중랑구", text: "중랑구" }
         ],
-        gyeonggi: [
+        경기도: [
             { value: "가평군", text: "가평군" },
             { value: "고양시 덕양구", text: "고양시 덕양구" },
             { value: "고양시 일산동구", text: "고양시 일산동구" },
@@ -222,8 +222,8 @@
                         <div class="d-flex">
                             <select class="form-select form-select-sm me-2" id="city" name="city" required onchange="updateDistricts()">
                                 <option value=""><fmt:message key="cityselect" /></option>
-                                <option value="seoul"><fmt:message key="seoul" /></option>
-                                <option value="gyeonggi"><fmt:message key="gyeonggi" /></option>
+                                <option value="서울시"><fmt:message key="seoul" /></option>
+                                <option value="경기도"><fmt:message key="gyeonggi" /></option>
                             </select>
                             <select class="form-select form-select-sm me-2" id="district" name="district" required>
                                 <option value=""><fmt:message key="districtselect" /></option>

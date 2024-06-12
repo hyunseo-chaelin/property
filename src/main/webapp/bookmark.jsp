@@ -166,7 +166,7 @@
     <div class="card shadow-sm">
         <img src="./resources/images/<%= property.getFilename() %>" class="card-img-top" alt="Property Image" width="100%" height="400">
         <div class="card-body">
-            <p class="card-text"><%= property.getDescription() %></p>
+            <p class="card-text"><%= property.getDescription().substring(1,60) %></p>
             <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                     <a href="./propertydetail.jsp?id=<%= property.getPropertyID() %>" class="btn btn-sm btn-outline-secondary">자세히 보기 &raquo;</a>
