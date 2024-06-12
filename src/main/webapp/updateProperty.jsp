@@ -11,7 +11,6 @@
     <meta name="author" content="" />
     <title>updates</title>
    
-    
     <!-- Bootstrap CSS 파일 포함 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     
@@ -58,15 +57,20 @@
 
 <%
     String id = request.getParameter("id");
-	PreparedStatement pstmt=null;
-	ResultSet rs = null;
-	String sql = "SELECT * FROM property WHERE b_id=?";
-	pstmt=conn.prepareStatement(sql);
-	pstmt.setString(1, id);
-	rs = pstmt.executeQuery();
-	if (rs.next()) {
-	%>
-	
+    out.println("Received ID: " + id); // 디버깅용 출력
+    if (id == null || id.trim().isEmpty()) {
+        out.println("ID parameter is missing.");
+    } else {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            String sql = "SELECT * FROM property WHERE b_id=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+%>
+
 <!-- Product section -->
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
@@ -90,7 +94,6 @@
                             <div class="d-flex">
                                 <form name="addForm" action="./addBookmark.jsp?id=<%= rs.getString("b_id") %>" method="post">
                                     <a href="./propertyforsale.jsp?id=<%= rs.getString("b_id") %>" class="btn btn-sm btn-outline-secondary me-2" style="font-size: 16px;">매물 목록 &raquo;</a>                
-                                    </a>
                                 </form>
                             </div>
                         </div>
@@ -101,14 +104,18 @@
     </div>
 </section>
 <%
+            } else {
+                out.println("No property found with the given ID.");
+            }
+        } finally {
+            if (rs != null) rs.close();
+            if (pstmt != null) pstmt.close();
+            if (conn != null) conn.close();
+        }
     }
-    if(rs!=null)
-        rs.close();
-    if(pstmt!=null)
-        pstmt.close();
-    if (conn!=null)
-        conn.close();
 %>
+
+
 <jsp:include page="footer.jsp" />
 <!-- Bootstrap core JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

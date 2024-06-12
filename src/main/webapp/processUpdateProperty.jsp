@@ -50,7 +50,7 @@
         	pstmt.setString(11, b_id);
         	pstmt.executeUpdate();
         } else {
-        	sql="UPDATE property SET b_name=?, b_kind=?, b_condition=?, b_unitPrice=?, b_description=?, b_city=?, b_district=?, b_area=?, b_fileName=? WHERE b_id=?";
+        	sql="UPDATE property SET b_id=?, b_name=?, b_kind=?, b_condition=?, b_unitPrice=?, b_description=?, b_city=?, b_district=?, b_area=?, b_fileName=? WHERE b_id=?";
         	pstmt.setString(1, b_id);
         	pstmt.setString(2, b_name);
             pstmt.setString(3, b_kind);
