@@ -1,4 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String sessionId = (String) session.getAttribute("sessionId");
+%>
 <html lang="ko" data-bs-theme="auto">
 <head>
     <script src="/docs/5.3/assets/js/color-modes.js"></script>
@@ -105,7 +109,7 @@
   <body>
     <nav class="navbar navbar-expand-md sticky-top border-bottom" style="background-color: #adb5bd;">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="main.jsp">
           <img src="<%= request.getContextPath() %>/resources/images/image2.png" alt="Logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -117,17 +121,25 @@
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#">소개</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">매물</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">찜한 매물</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">컨설팅</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">길 안내</a></li>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">                  
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/info.jsp"/>">소개</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/propertyforsale.jsp"/>">매물 목록</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/bookmark.jsp"/>">찜한 매물</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/addProperty.jsp"/>">매물 등록</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">컨설팅</a></li>               
                     </ul>
-                    <!-- 로그인, 회원가입 오른쪽 배치 -->
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#">로그인</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">회원가입</a></li>
+                    <c:choose>
+                    	<c:when test="${empty sessionId}">
+                        	<li class="nav-item"><a class="nav-link" href="<c:url value="/member/loginMember.jsp"/>">로그인</a></li>
+                        	<li class="nav-item"><a class="nav-link" href="<c:url value="/member/addMember.jsp" />">회원가입</a></li>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<li style="padding-top: 7px; color: white">[<%=sessionId%>님]</li>	
+                    		<li class="nav-item"><a class="nav-link" href='<c:url value="/member/logoutMember.jsp"/>'>로그 아웃</a></li>
+                        	<li class="nav-item"><a class="nav-link" href='<c:url value="/member/updateMember.jsp" />'>회원 수정</a></li>
+                    	</c:otherwise>
+                    </c:choose>
                     </ul>
                 </div>
             </div>

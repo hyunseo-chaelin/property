@@ -1,32 +1,23 @@
 USE propertyDB;
 
-create table member ( 
-    id varchar(10) not null,
-    password varchar(10) not null,
-    name varchar(10) not null,
-    gender varchar(4),
-    birth  varchar(10),
-    mail  varchar(30),
-    phone1 varchar(10),
-    phone2 varchar(10),
-    phone3 varchar(10),
-    address varchar(90),
-    addr_detail varchar(90),
-    card_type varchar(30),
-    cc_name varchar(30),
-    cc_num_1 varchar(10),
-    cc_num_2 varchar(10),
-    cc_num_3 varchar(10),
-    cc_num_4 varchar(10),
-    cc_expiration_yy varchar(10),
-    cc_expiration_mm varchar(10),
-    CVC varchar(10),
+CREATE TABLE member (
+    id VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    gender VARCHAR(4),
+    birth VARCHAR(10),
+    mail VARCHAR(50),
+    phone VARCHAR(20),
+    address VARCHAR(90),
+    cardType VARCHAR(30),
+    cardName VARCHAR(50),
+    cardNumber VARCHAR(30),
+    cardExpiration VARCHAR(10),
+    cvc VARCHAR(10),
     regist_day varchar(50),
-    primary key(id) 
-) default CHARSET=utf8;
+    PRIMARY KEY(id)
+) DEFAULT CHARSET=utf8;
 
+SELECT * FROM member;
 
-select * from member; 
-
-
-drop table member;
+DROP TABLE member;

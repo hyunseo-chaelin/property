@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%
    session.invalidate();
-   response.sendRedirect("menu.jsp");
+   response.sendRedirect("addProperty.jsp");
 %>
-<!-- 수정해야힘 -->
