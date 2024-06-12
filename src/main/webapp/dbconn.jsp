@@ -6,7 +6,7 @@
     try {
         String url = "jdbc:mysql://localhost:3306/propertyDB";
         String user = "root";
-        String password = "1234";
+        String password = "chae0123";
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         conn = DriverManager.getConnection(url, user, password);
