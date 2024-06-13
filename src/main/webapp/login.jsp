@@ -2,7 +2,7 @@
 <html lang="ko" data-bs-theme="auto">
 <head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.0/color-modes.js"></script>
-<title>Login</title>
+<title>adminLogin</title>
 </head>
 <body>
  <%@ include file="menu.jsp" %>
@@ -10,7 +10,8 @@
     <div class="row align-items-md-stretch text-center ">
       <div class="row justify-content-center align-items-center ">
         <div class="h-100 p-5 col-md-6" style="margin-top: 60px;">
-            <h3>로그인 해주세요</h3>    
+            <h3>관리자 로그인</h3>    
+            <p> 관리자만 이용 가능합니다.
             <%
             String error=request.getParameter("error");
             if(error!=null){

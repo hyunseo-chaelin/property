@@ -30,7 +30,6 @@
 </head>
 <body class="bg-body-tertiary">
     <div class="container mt-4">
-        <!-- 대표 소개 섹션 -->
         <div id="ceo-introduction">
             <h3 class="section-title">○ 대표/공인중개사 소개</h3>
             <img src="<%= request.getContextPath() %>/resources/images/info_ceo.png" alt="대표 소개 이미지" class="ceo-image">
@@ -51,8 +50,6 @@
                 </div>
             </div>
         </div>
-        
-        <!-- 사무실 소개 섹션 -->
         <div id="office-introduction">
             <h3 class="section-title">○ 사무실 소개</h3>
             <div class="card mb-4">
@@ -82,8 +79,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- 길 안내 섹션 -->
         <div id="directions">
             <h3 class="section-title">○ 길 안내</h3>
             <div class="card mb-4">
@@ -100,11 +95,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    <!-- 구글 지도 API 스크립트 -->
+    <!-- 구글 지도 API  -->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhqDTkMRZbBl9jfLs57nSxJo2OO7cJVR0&callback=initMap"></script>
     <script>
         function initMap() {
-            var officeLocation = { lat: 37.493378, lng: 127.493594 }; // 네이버 지도에서 얻은 좌표
+            var officeLocation = { lat: 37.493378, lng: 127.493594 };
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 15,
                 center: officeLocation

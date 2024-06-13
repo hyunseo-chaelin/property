@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" %>
+<%@ include file="../dbconn.jsp" %>
 <%@ include file="../menu.jsp" %>
 <!-- 회원가입 -->
 <html lang="ko" data-bs-theme="auto">
@@ -12,7 +13,7 @@
   <!-- Bootstrap CSS 파일 포함 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap">
-
+	
   <style>
     @media (min-width: 768px) {
       .bd-placeholder-img-lg {
@@ -46,7 +47,7 @@
       margin-bottom: 1.0rem; /* 원하는 간격으로 조정 */
     }
   </style>
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     function checkForm() {
       if (!document.getElementById('id').value) {
@@ -62,6 +63,40 @@
         return false;
       }
     }
+
+    $(document).ready(function() {
+      $('#newMemberForm').on('submit', function() {
+        return checkForm();
+      });
+
+      $('#id-check').on('click', function() {
+        checkId();
+      });
+    });
+
+    function checkId() {
+      var userId = document.getElementById('id').value;
+      if (!userId) {
+        alert("아이디를 입력하세요.");
+        return;
+      }
+
+      $.ajax({
+        url: 'checkId.jsp', // 아이디 중복 검사를 처리하는 서버 엔드포인트
+        type: 'POST',
+        data: { id: userId },
+        success: function(response) {
+          if (response.trim() === 'duplicate') {
+            alert("아이디가 중복되었습니다.");
+          } else {
+            alert("사용 가능한 아이디입니다.");
+          }
+        },
+        error: function() {
+          alert("아이디 중복 검사에 실패했습니다. 나중에 다시 시도해주세요.");
+        }
+      });
+    }
   </script>
 </head>
 
@@ -73,7 +108,7 @@
     </div>
     <div class="container">
       <main>
-        <form name="newMember" onsubmit="return checkForm();" method="post" action="processAddMember.jsp">
+        <form name="newMember" id="newMemberForm" method="post" action="processAddMember.jsp">
 		  <div class="row g-3 mb-3">
 		    <div class="col-6">
 		      <label for="username" class="form-label">아이디</label>
@@ -99,14 +134,15 @@
 		  </div>
 		
 		  <div class="row g-3 mb-3">
-		    <div class="col-6">
-		      <label for="name" class="form-label">성명<span class="text-body-secondary"></span></label>
-		      <input type="text" class="form-control custom-width" id="name" name="name" placeholder="name" required>
-		    </div>
-		    <div class="invalid-feedback">
-		      성명을 입력해주세요.
-		    </div>
+			  <div class="col-6">
+			    <label for="name" class="form-label">성명<span class="text-body-secondary"></span></label>
+			    <input type="text" class="form-control custom-width" id="name" name="name" placeholder="name" required>
+			    <div class="invalid-feedback">
+			      성명을 입력해주세요.
+			    </div>
+			  </div>
 		  </div>
+
 		
 		  <div class="row g-3 mb-3">
 		    <label for="gender" class="form-label">성별<span class="text-body-secondary"></span></label>
@@ -304,5 +340,31 @@
   <script src="checkout.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  <script type'"text/javascript">
+  function checkId() {
+	    var userId = document.getElementById('id').value;
+	    if (!userId) {
+	        alert("아이디를 입력하세요.");
+	        return;
+	    }
+
+	    $.ajax({
+	        url: 'checkId.jsp', // 아이디 중복 검사를 처리하는 서버 엔드포인트
+	        type: 'POST',
+	        data: { id: userId },
+	        success: function(response) {
+	            if (response.trim() === 'duplicate') {
+	                alert("이미 사용 중인 아이디입니다.");
+	            } else {
+	                alert("사용 가능한 아이디입니다.");
+	            }
+	        },
+	        error: function() {
+	            alert("아이디 중복 검사에 실패했습니다. 나중에 다시 시도해주세요.");
+	        }
+	    });
+	}
+
+  </script>
 </body>
 </html>

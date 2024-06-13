@@ -17,13 +17,8 @@
     String mail1 = request.getParameter("mail1");
     String mail2 = request.getParameter("mail2");
     String mail = mail1 + "@" + mail2;
-    String phone1 = request.getParameter("phone1");
-    String phone2 = request.getParameter("phone2");
-    String phone3 = request.getParameter("phone3");
-    String phone = phone1 + "-" + phone2 + "-" + phone3;
-    String address1 = request.getParameter("address1");
-    String address2 = request.getParameter("address2");
-    String address = address1 + " " + address2;
+    String phone = request.getParameter("phone");
+    String address = request.getParameter("address");
 
     String cardType = request.getParameter("card_type");
     String cardName = request.getParameter("cc_name");
@@ -38,24 +33,8 @@
     String cvc = request.getParameter("cvc");
     
     java.sql.Timestamp timestamp = new java.sql.Timestamp(System.currentTimeMillis());
-
-    // 디버깅 출력
-    System.out.println("id: " + id);
-    System.out.println("password: " + password);
-    System.out.println("name: " + name);
-    System.out.println("gender: " + gender);
-    System.out.println("birth: " + birth);
-    System.out.println("mail: " + mail);
-    System.out.println("phone: " + phone);
-    System.out.println("address: " + address);
-    System.out.println("cardType: " + cardType);
-    System.out.println("cardName: " + cardName);
-    System.out.println("cardNumber: " + cardNumber);
-    System.out.println("cardExpiration: " + cardExpiration);
-    System.out.println("cvc: " + cvc);
-    System.out.println("timestamp: " + timestamp);
     
- // null 값을 빈 문자열로 변환
+    // null 값을 빈 문자열로 변환
     cardType = (cardType != null) ? cardType : "";
     cardName = (cardName != null) ? cardName : "";
     cardNumber = (cardNumber != null) ? cardNumber : "";
@@ -68,27 +47,27 @@
     } else {
         PreparedStatement pstmt = null;
         try {
-            String sql = "INSERT INTO member (id, password, name, gender, birth, mail, phone, address, cardType, cardName, cardNumber, cardExpiration, cvc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "UPDATE member SET password = ?, name = ?, gender = ?, birth = ?, mail = ?, phone = ?, address = ?, cardType = ?, cardName = ?, cardNumber = ?, cardExpiration = ?, cvc = ? WHERE id = ?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, id);
-            pstmt.setString(2, password);
-            pstmt.setString(3, name);
-            pstmt.setString(4, gender);
-            pstmt.setString(5, birth);
-            pstmt.setString(6, mail);
-            pstmt.setString(7, phone);
-            pstmt.setString(8, address);
-            pstmt.setString(9, cardType);
-            pstmt.setString(10, cardName);
-            pstmt.setString(11, cardNumber);
-            pstmt.setString(12, cardExpiration);
-            pstmt.setString(13, cvc);
+            pstmt.setString(1, password);
+            pstmt.setString(2, name);
+            pstmt.setString(3, gender);
+            pstmt.setString(4, birth);
+            pstmt.setString(5, mail);
+            pstmt.setString(6, phone);
+            pstmt.setString(7, address);
+            pstmt.setString(8, cardType);
+            pstmt.setString(9, cardName);
+            pstmt.setString(10, cardNumber);
+            pstmt.setString(11, cardExpiration);
+            pstmt.setString(12, cvc);
+            pstmt.setString(13, id);
 
             int result = pstmt.executeUpdate();
             if (result >= 1) {
-                response.sendRedirect("resultMember.jsp?msg=1");
-            } else {
                 response.sendRedirect("resultMember.jsp?msg=0");
+            } else {
+                response.sendRedirect("resultMember.jsp?msg=2");
             }
         } catch (SQLException ex) {
             out.println("SQL 오류가 발생했습니다.<br>");

@@ -5,7 +5,7 @@ SET b_district = '강남구'
 WHERE b_id = 'PROP1';
 
 UPDATE property
-SET b_city = '서울시'
-WHERE b_id = 'PROP2428';
+SET  b_id = 'PROP2428'
+WHERE b_city = '서울시';
 
 SELECT * FROM property;

@@ -2,20 +2,11 @@
 <%@ include file="menu.jsp" %>
 <%@ page import="java.sql.*" %>
 <%@ include file="dbconn.jsp" %>
-
-<!doctype html>
 <html lang="ko" data-bs-theme="auto">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
     <title>BookMark</title>
-
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-
-    <!-- Bootstrap CSS 파일 포함 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 </head>
 <body>
     <main>
@@ -33,7 +24,6 @@
                 </div>
             </div>
         </section>
-
         <div class="album py-5 bg-body-tertiary">
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -43,7 +33,6 @@
                             response.sendRedirect("loginMember.jsp");
                             return;
                         }
-
                         PreparedStatement pstmt = null;
                         ResultSet rs = null;
                         try {
@@ -51,7 +40,6 @@
                             pstmt = conn.prepareStatement(sql);
                             pstmt.setString(1, userId);
                             rs = pstmt.executeQuery();
-
                             while (rs.next()) {
                                 String bId = rs.getString("b_id");
                                 String bName = rs.getString("b_name");
@@ -73,25 +61,23 @@
                         </div>
                     </div>
                     <%
-                            }
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        } finally {
-                            try {
-                                if (rs != null) rs.close();
-                                if (pstmt != null) pstmt.close();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
                         }
-                    %>
+                    } catch (SQLException e) {
+                            e.printStackTrace();
+                    } finally {
+                    	try {
+                        	if (rs != null) rs.close();
+                            if (pstmt != null) pstmt.close();
+                        } catch (SQLException e) {
+                                e.printStackTrace();
+                        }
+                   }
+                   %>
                 </div>
             </div>
         </div>
     </main>
-
     <jsp:include page="footer.jsp" />
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>

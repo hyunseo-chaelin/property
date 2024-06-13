@@ -8,6 +8,7 @@
 <head>
     <script src="/docs/5.3/assets/js/color-modes.js"></script>
     <title>addProperty</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     const districts = {
         서울시: [
@@ -89,10 +90,8 @@
         const city = document.getElementById('city').value;
         const districtSelect = document.getElementById('district');
 
-        // 기존 옵션 삭제
         districtSelect.innerHTML = '<option value="">구/군 선택</option>';
 
-        // 새로운 옵션 추가
         if (city && districts[city]) {
             districts[city].forEach(district => {
                 const option = document.createElement('option');
@@ -101,6 +100,30 @@
                 districtSelect.add(option);
             });
         }
+    }
+
+    function checkPropertyId() {
+        var propertyId = document.getElementById('b_id').value;
+        if (!b_id) {
+            alert("매물 아이디를 입력하세요.");
+            return;
+        }
+
+        $.ajax({
+            url: 'checkPropertyId.jsp',
+            type: 'POST',
+            data: { b_id: b_id },
+            success: function(response) {
+                if (response.trim() === 'duplicate') {
+                    alert("이미 사용 중인 매물 아이디입니다.");
+                } else {
+                    alert("사용 가능한 매물 아이디입니다.");
+                }
+            },
+            error: function() {
+                alert("매물 아이디 중복 검사에 실패했습니다. 나중에 다시 시도해주세요.");
+            }
+        });
     }
     </script>
 
@@ -165,29 +188,16 @@
     <link href="checkout.css" rel="stylesheet">
 </head>
 <body class="bg-body-tertiary">
-	<!-- 관리자 로그아웃 -->
-	<div class="row align-items-md-strech">
-		<div class="text-end">
-			<a href="logout.jsp" class="btn btn-sm btn-success pull right">관리자 로그아웃</a>
-		</div>
-	</div>
-	
-	<fmt:setLocale value='<%=request.getParameter("language") %>' />
-	<fmt:bundle basename="bundle.message">
+    <!-- 관리자 로그아웃 -->
+    <div class="row align-items-md-strech">
+        <div class="text-end">
+            <a href="logout.jsp" class="btn btn-sm btn-success pull right">관리자 로그아웃</a>
+        </div>
+    </div>
+    
+    <fmt:setLocale value='<%=request.getParameter("language") %>' />
+    <fmt:bundle basename="bundle.message">
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-        <symbol id="check2" viewBox="0 0 16 16">
-            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-        </symbol>
-        <symbol id="circle-half" viewBox="0 0 16 16">
-            <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
-        </symbol>
-        <symbol id="moon-stars-fill" viewBox="0 0 16 16">
-            <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
-            <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
-        </symbol>
-        <symbol id="sun-fill" viewBox="0 0 16 16">
-            <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
-        </symbol>
     </svg>
     
     <div class="container">
@@ -202,6 +212,9 @@
                     <div class="col-12">
                         <label class="form-label"><fmt:message key="name" /></label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="property Name" value="" required>
+                    	<div class="invalid-feedback">
+                            매물 이름을 입력해주세요.
+                        </div>
                     </div>
                 </div>
                 <div class="row g-3 mb-3">
@@ -209,10 +222,10 @@
                         <label class="form-label"><fmt:message key="propertyID" /></label>
                         <div class="input-group">
                             <input type="text" class="form-control" name="propertyId" id="propertyId" placeholder="propertyID" required>
-                            <button class="btn btn-outline-secondary" type="button" id="propertyID-check">중복 검색</button>
+                            <button class="btn btn-outline-secondary" type="button" id="propertyID-check" onclick="checkPropertyId()">중복 검색</button>
                         </div>
                         <div class="invalid-feedback">
-                            Your username is required.
+                            매물 아이디를 입력해주세요.
                         </div>
                     </div>
                 </div>
@@ -228,7 +241,6 @@
                             <select class="form-select form-select-sm me-2" id="district" name="district" required>
                                 <option value=""><fmt:message key="districtselect" /></option>
                             </select>
-<!--                             <button type="submit" class="btn btn-sm btn-outline-secondary">확인</button>  -->
                         </div>
                     </div>
                 </div>
