@@ -1,7 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8" %>
-<%@ page import="dto.Property" %>
-<%@ page import="dao.PropertyRepository" %>
+<%@ page import="java.sql.*" %>
 <%@ include file="menu.jsp" %>
+<%@ include file="dbconn.jsp" %>
+
 <!DOCTYPE html>
 <html lang="ko" data-bs-theme="auto">
 <head>
@@ -67,33 +68,40 @@
 <body>
 <%
     String id = request.getParameter("id");
-    PropertyRepository dao = PropertyRepository.getInstance();
-    Property property = dao.getPropertyById(id);
+
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    try {
+        String sql = "SELECT * FROM property WHERE b_id=?";
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, id);
+        rs = pstmt.executeQuery();
+        if (rs.next()) {
 %>
 <!-- Product section -->
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-5">
-                <img class="card-img-top mb-5 mb-md-0" src="./resources/images/<%=property.getFilename() %>" alt="<%= property.getName() %>" />
+                <img class="card-img-top mb-5 mb-md-0" src="./resources/images/<%= rs.getString("b_fileName") %>" alt="<%= rs.getString("b_name") %>" />
             </div>
             <div class="col-md-6">
-                <span class="px-2 py-1"><%= property.getDistrict() %></span>
-                <h1 class="display-5 fw-bolder"><%=property.getName() %></h1>
+                <span class="px-2 py-1"><%= rs.getString("b_district") %></span>
+                <h1 class="display-5 fw-bolder"><%= rs.getString("b_name") %></h1>
                 <div class="fs-5 mb-5">
                     <div class="form-group">
-                        <span class="condition" id="condition"><%=property.getCondition() %></span>
-                        <span class="price" id="price"><%=property.getUnitPrice() %></span>
+                        <span class="condition" id="condition"><%= rs.getString("b_condition") %></span>
+                        <span class="price" id="price"><%= rs.getString("b_unitPrice") %></span>
                     </div>
                 </div>
-                <p class="lead"><%=property.getDescription() %></p>
+                <p class="lead"><%= rs.getString("b_description") %></p>
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex">
-                                <form name="addForm" action="./addBookmark.jsp?id=<%=property.getPropertyID() %>" method="post">
-                                    <a href="./propertyforsale.jsp?id=<%= property.getPropertyID() %>" class="btn btn-sm btn-outline-secondary me-2" style="font-size: 16px;">매물 목록 &raquo;</a>                
-                                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-dark" onclick="addToBookmark('<%= property.getPropertyID() %>')">
+                                <form name="addForm" action="./addBookmark.jsp?id=<%= rs.getString("b_id") %>" method="post">
+                                    <a href="./propertyforsale.jsp?id=<%= rs.getString("b_id") %>" class="btn btn-sm btn-outline-secondary me-2" style="font-size: 16px;">매물 목록 &raquo;</a>                
+                                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-dark" onclick="addToBookmark('<%= rs.getString("b_id") %>')">
                                         <i class="fa fa-heart" style="color: red;"></i> 찜하기
                                     </a>
                                 </form>
@@ -105,6 +113,18 @@
         </div>
     </div>
 </section>
+<%
+        } else {
+            out.println("No property found with the given ID.");
+        }
+    } catch (SQLException e) {
+        out.println("SQL Error: " + e.getMessage());
+    } finally {
+        if (rs != null) rs.close();
+        if (pstmt != null) pstmt.close();
+        if (conn != null) conn.close();
+    }
+%>
 
 <jsp:include page="footer.jsp" />
 
