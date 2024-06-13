@@ -121,7 +121,7 @@
             <div class="row g-3 mb-3 align-items-center">
                 <label for="email" class="form-label">이메일<span class="text-body-secondary"></span></label>
                 <div class="col-md-2">
-                    <input type="text" class="form-control" id="email1" name="mail1" placeholder="you" value="${mail1}" required>
+                    <input type="text" class="form-control" id="mail1" name="mail1" placeholder="you" value="${mail1}" required>
                 </div>
                 <div class="col-auto align-self-center">
                     @
@@ -158,12 +158,12 @@
             <div class="row g-3 mb-3">
                 <div class="col-6">
                     <label for="address" class="form-label">주소<span class="text-body-secondary"></span></label>
-                    <input type="text" class="form-control custom-width mb-custom" id="address2" name="address" placeholder="주소" value="${row.address}" required>
+                    <input type="text" class="form-control custom-width mb-custom" id="address2" name="address1" placeholder="주소" value="${row.address}" required>
                 </div>
             </div>
             <div class="row g-3 mb-3">
                 <div class="col-6">
-                    <input type="text" class="form-control custom-width" id="address3" name="detail_address" placeholder="상세주소" value="${row.detail_address}" required>
+                    <input type="text" class="form-control custom-width" id="address3" name="address2" placeholder="상세주소" value="${row.detail_address}" required>
                 </div>
             </div>
             <hr class="my-4">
@@ -245,11 +245,8 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <label for="CVC" class="form-label">CVC</label>
-                            <input type="text" maxlength="3" size="3" name="CVC" class="form-control me-2" id="CVC" pattern="\d{3}" inputmode="numeric" value="${CVC}">
-                            <div class="invalid-feedback">
-                                Security code required
-                            </div>
+                            <label for="cvc" class="form-label">CVC</label>
+                            <input type="text" maxlength="3" size="3" name="cvc" class="form-control me-2" id="cvc" pattern="\d{3}" inputmode="numeric" value="${CVC}">
                         </div>
                     </div>
                 </div>
