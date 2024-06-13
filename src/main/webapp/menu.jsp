@@ -101,6 +101,13 @@
         align-items: center; /* 세로 중앙 정렬 */
         justify-content: space-between; /* 요소들을 양쪽 끝으로 배치 */
     }
+    
+    .centered-text {
+    color: white;
+    display: flex;
+    align-items: center;
+    height: 100%;
+	}
     </style>
     
     <!-- Custom styles for this template -->
@@ -126,7 +133,9 @@
                         <li class="nav-item"><a class="nav-link" href="<c:url value="/propertyforsale.jsp"/>">매물 목록</a></li>
                         <li class="nav-item"><a class="nav-link" href="<c:url value="/bookmark.jsp"/>">찜한 매물</a></li>
                         <li class="nav-item"><a class="nav-link" href="<c:url value="/addProperty.jsp"/>">매물 등록</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">컨설팅</a></li>               
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/editProperty.jsp?edit=update"/>">매물 수정</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<c:url value="/consulting.jsp"/>">컨설팅</a></li>
+                        <li class ="nav-item"><a class="nav-link" href= "<c:url value="/BoardListAction.do?pageNum=1"/>" >게시판</a></li>               
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <c:choose>
@@ -135,7 +144,7 @@
                         	<li class="nav-item"><a class="nav-link" href="<c:url value="/member/addMember.jsp" />">회원가입</a></li>
                     	</c:when>
                     	<c:otherwise>
-                    		<li style="padding-top: 7px; color: white">[<%=sessionId%>님]</li>	
+                    		<li class="centered-text">[<%=sessionId%>님]</li>
                     		<li class="nav-item"><a class="nav-link" href='<c:url value="/member/logoutMember.jsp"/>'>로그 아웃</a></li>
                         	<li class="nav-item"><a class="nav-link" href='<c:url value="/member/updateMember.jsp" />'>회원 수정</a></li>
                     	</c:otherwise>

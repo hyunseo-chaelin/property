@@ -19,4 +19,3 @@ CREATE TABLE IF NOT EXISTS property (
 show tables;
 DESC property;
 
-ALTER TABLE property CHANGE COLUMN p_kind b_kind VARCHAR(30);
