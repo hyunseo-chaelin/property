@@ -27,10 +27,16 @@
 
     String cardType = request.getParameter("card_type");
     String cardName = request.getParameter("cc_name");
-    String cardNumber = request.getParameter("cc_num_1") + "-" + request.getParameter("cc_num_2") + "-" + request.getParameter("cc_num_3") + "-" + request.getParameter("cc_num_4");
-    String cardExpiration = request.getParameter("cc_expiration_yy") + "/" + request.getParameter("cc_expiration_mm");
+    String cardNum1 = request.getParameter("cc_num_1");
+    String cardNum2 = request.getParameter("cc_num_2");
+    String cardNum3 = request.getParameter("cc_num_3");
+    String cardNum4 = request.getParameter("cc_num_4");
+    String cardNumber = cardNum1 + "-" + cardNum2 + "-" + cardNum3 + "-" + cardNum4;
+    String cardExpYear = request.getParameter("cc_expiration_yy");
+    String cardExpMonth = request.getParameter("cc_expiration_mm");
+    String cardExpiration = cardExpYear + "/" + cardExpMonth;
     String cvc = request.getParameter("cvc");
-
+    
     java.sql.Timestamp timestamp = new java.sql.Timestamp(System.currentTimeMillis());
 
     // 디버깅 출력
@@ -48,31 +54,47 @@
     System.out.println("cardExpiration: " + cardExpiration);
     System.out.println("cvc: " + cvc);
     System.out.println("timestamp: " + timestamp);
+    
+ // null 값을 빈 문자열로 변환
+    cardType = (cardType != null) ? cardType : "";
+    cardName = (cardName != null) ? cardName : "";
+    cardNumber = (cardNumber != null) ? cardNumber : "";
+    cardExpiration = (cardExpiration != null) ? cardExpiration : "";
+    cvc = (cvc != null) ? cvc : "";
+
+    // Connection 객체를 가져옴
+    if (conn == null) {
+        out.println("데이터베이스 연결을 사용할 수 없습니다.<br>");
+    } else {
+        PreparedStatement pstmt = null;
+        try {
+            String sql = "INSERT INTO member (id, password, name, gender, birth, mail, phone, address, cardType, cardName, cardNumber, cardExpiration, cvc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            pstmt.setString(2, password);
+            pstmt.setString(3, name);
+            pstmt.setString(4, gender);
+            pstmt.setString(5, birth);
+            pstmt.setString(6, mail);
+            pstmt.setString(7, phone);
+            pstmt.setString(8, address);
+            pstmt.setString(9, cardType);
+            pstmt.setString(10, cardName);
+            pstmt.setString(11, cardNumber);
+            pstmt.setString(12, cardExpiration);
+            pstmt.setString(13, cvc);
+
+            int result = pstmt.executeUpdate();
+            if (result >= 1) {
+                response.sendRedirect("resultMember.jsp?msg=1");
+            } else {
+                response.sendRedirect("resultMember.jsp?msg=0");
+            }
+        } catch (SQLException ex) {
+            out.println("SQL 오류가 발생했습니다.<br>");
+            out.println("SQLException: " + ex.getMessage());
+        } finally {
+            if (pstmt != null) try { pstmt.close(); } catch (SQLException ex) {}
+        }
+    }
 %>
-
-<sql:update dataSource="${dataSource}" var="resultSet">
-    UPDATE member 
-    SET password = ?, name = ?, gender = ?, birth = ?, mail = ?, phone = ?, address = ?, cardType = ?, cardName = ?, cardNumber = ?, cardExpiration = ?, cvc = ?, regist_day = ?
-    WHERE id = ?
-    <sql:param value="<%=password%>" />
-    <sql:param value="<%=name%>" />
-    <sql:param value="<%=gender%>" />
-    <sql:param value="<%=birth%>" />
-    <sql:param value="<%=mail%>" />
-    <sql:param value="<%=phone%>" />
-    <sql:param value="<%=address%>" />
-    <sql:param value="<%=cardType != null ? cardType : "" %>" />
-    <sql:param value="<%=cardName != null ? cardName : "" %>" />
-    <sql:param value="<%=cardNumber != null ? cardNumber : "" %>" />
-    <sql:param value="<%=cardExpiration != null ? cardExpiration : "" %>" />
-    <sql:param value="<%=cvc != null ? cvc : "" %>" />
-    <sql:param value="<%=timestamp%>" />
-    <sql:param value="<%=id%>" />
-</sql:update>
-
-<c:if test="${resultSet >= 1}">
-    <c:redirect url="resultMember.jsp?msg=1" />
-</c:if>
-<c:if test="${resultSet < 1}">
-    <c:redirect url="exceptionNoPage.jsp" />
-</c:if>

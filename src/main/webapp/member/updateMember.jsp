@@ -2,21 +2,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@ include file="../dbconn.jsp" %>
+<%@ include file="../menu.jsp" %>
 <html lang="ko" data-bs-theme="auto">
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <%
-    String sessionId = (String) session.getAttribute("sessionId");
+    String SessionId = (String) session.getAttribute("userId");
 %>
 
 <sql:query dataSource="${dataSource}" var="resultSet">
    SELECT * FROM MEMBER WHERE ID=?
-   <sql:param value="<%=sessionId%>" />
+   <sql:param value="<%=SessionId%>" />
 </sql:query>    
 <title>회원 수정</title>
 </head>
 <body onload="init()">
-<jsp:include page="/menu.jsp" />
 <div class="container py-4">
     <div class="p-5 mb-4 bg-body-tertiary rounded-3">
         <div class="container-fluid py-5">
@@ -35,14 +35,14 @@
     <c:set var="month" value="${birth.split('/')[1]}" />
     <c:set var="day" value="${birth.split('/')[2]}" />
     
-    <c:set var="card_type" value="${row.cardType}" />
-    <c:set var="cc_name" value="${row.cardName}" />
-    <c:set var="cc_num_1" value="${row.cardNumber.split('-')[0]}" />
-    <c:set var="cc_num_2" value="${row.cardNumber.split('-')[1]}" />
-    <c:set var="cc_num_3" value="${row.cardNumber.split('-')[2]}" />
-    <c:set var="cc_num_4" value="${row.cardNumber.split('-')[3]}" />
-    <c:set var="cc_expiration_yy" value="${row.cardExpiration.split('/')[0]}" />
-    <c:set var="cc_expiration_mm" value="${row.cardExpiration.split('/')[1]}" />
+    <c:set var="card_type" value="${row.cardtype}" />
+    <c:set var="cc_name" value="${row.cardname}" />
+    <c:set var="cc_num_1" value="${row.cardnumber.split('-')[0]}" />
+    <c:set var="cc_num_2" value="${row.cardnumber.split('-')[1]}" />
+    <c:set var="cc_num_3" value="${row.cardnumber.split('-')[2]}" />
+    <c:set var="cc_num_4" value="${row.cardnumber.split('-')[3]}" />
+    <c:set var="cc_expiration_yy" value="${row.cardexpiration.split('/')[0]}" />
+    <c:set var="cc_expiration_mm" value="${row.cardexpiration.split('/')[1]}" />
     <c:set var="CVC" value="${row.cvc}" />
 
     <div class="container">
@@ -51,8 +51,8 @@
                 <div class="col-6">
                     <label for="username" class="form-label">아이디</label>
                     <div class="input-group">
-                        <input type="text" class="form-control custom-width" id="username" name="id" placeholder="ID" value="${row.id}" required readonly>
-                        <button class="btn btn-outline-secondary" type="button" id="username-check">중복 검색</button>
+                        <input type="text" class="form-control custom-width" id="id" name="id" placeholder="ID" value="${row.id}" required readonly>
+                        <button class="btn btn-outline-secondary" type="button" id="id-check">중복 검색</button>
                     </div>
                     <div class="invalid-feedback">
                         아이디를 입력해주세요.
