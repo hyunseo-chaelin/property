@@ -101,6 +101,13 @@
         align-items: center; /* 세로 중앙 정렬 */
         justify-content: space-between; /* 요소들을 양쪽 끝으로 배치 */
     }
+    
+    .centered-text {
+    color: white;
+    display: flex;
+    align-items: center;
+    height: 100%;
+	}
     </style>
     
     <!-- Custom styles for this template -->
@@ -136,7 +143,7 @@
                         	<li class="nav-item"><a class="nav-link" href="<c:url value="/member/addMember.jsp" />">회원가입</a></li>
                     	</c:when>
                     	<c:otherwise>
-                    		<li style="padding-top: 7px; color: white">[<%=sessionId%>님]</li>	
+                    		<li class="centered-text">[<%=sessionId%>님]</li>
                     		<li class="nav-item"><a class="nav-link" href='<c:url value="/member/logoutMember.jsp"/>'>로그 아웃</a></li>
                         	<li class="nav-item"><a class="nav-link" href='<c:url value="/member/updateMember.jsp" />'>회원 수정</a></li>
                     	</c:otherwise>

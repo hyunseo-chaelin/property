@@ -49,7 +49,7 @@
 
   <script>
     function checkForm() {
-      if (!document.getElementById('username').value) {
+      if (!document.getElementById('id').value) {
         alert("아이디를 입력하세요.");
         return false;
       }
@@ -73,228 +73,229 @@
     </div>
     <div class="container">
       <main>
-        <form name="newMember" onsubmit="return checkForm();" method="post" action="processMember.jsp">
-          <div class="row g-3 mb-3">
-            <div class="col-6">
-              <label for="username" class="form-label">아이디</label>
-              <div class="input-group">
-                <input type="text" class="form-control custom-width" id="username" name="username" placeholder="ID" required>
-                <button class="btn btn-outline-secondary" type="button" id="username-check">중복 검색</button>
-              </div>
-            </div>
-          </div>
+        <form name="newMember" onsubmit="return checkForm();" method="post" action="processAddMember.jsp">
+		  <div class="row g-3 mb-3">
+		    <div class="col-6">
+		      <label for="username" class="form-label">아이디</label>
+		      <div class="input-group">
+		        <input type="text" class="form-control custom-width" id="id" name="id" placeholder="ID" required>
+		        <button class="btn btn-outline-secondary" type="button" id="id-check">중복 검색</button>
+		      </div>
+		    </div>
+		  </div>
+		
+		  <div class="row g-3 mb-3">
+		    <div class="col-6">
+		      <label for="password" class="form-label">비밀번호<span class="text-body-secondary"></span></label>
+		      <input type="password" class="form-control custom-width" id="password" name="password" placeholder="password" required>
+		    </div>
+		  </div>
+		
+		  <div class="row g-3 mb-3">
+		    <div class="col-6">
+		      <label for="password_confirm" class="form-label">비밀번호 확인<span class="text-body-secondary"></span></label>
+		      <input type="password" class="form-control custom-width" id="password_confirm" name="password_confirm" placeholder="password confirm" required>
+		    </div>
+		  </div>
+		
+		  <div class="row g-3 mb-3">
+		    <div class="col-6">
+		      <label for="name" class="form-label">성명<span class="text-body-secondary"></span></label>
+		      <input type="text" class="form-control custom-width" id="name" name="name" placeholder="name" required>
+		    </div>
+		    <div class="invalid-feedback">
+		      성명을 입력해주세요.
+		    </div>
+		  </div>
+		
+		  <div class="row g-3 mb-3">
+		    <label for="gender" class="form-label">성별<span class="text-body-secondary"></span></label>
+		    <div class="col-sm-2">
+		      <input name="gender" type="radio" value="남" /> 남
+		    </div>
+		    <div class="col-sm-2">
+		      <input name="gender" type="radio" value="여" /> 여
+		    </div>
+		    <div class="invalid-feedback">
+		      성별을 선택해주세요.
+		    </div>
+		  </div>
+		
+		  <div class="row g-3 mb-3">
+		    <label for="birthday" class="form-label">생일<span class="text-body-secondary"></span></label>
+		    <div class="col-md-2">
+		      <input type="text" name="birthyy" maxlength="4" class="form-control" placeholder="년(4자)" required>
+		    </div>
+		    <div class="col-md-2">
+		      <select name="birthmm" class="form-select" required>
+		        <option value="">월</option>
+		        <option value="01">01</option>
+		        <option value="02">02</option>
+		        <option value="03">03</option>
+		        <option value="04">04</option>
+		        <option value="05">05</option>
+		        <option value="06">06</option>
+		        <option value="07">07</option>
+		        <option value="08">08</option>
+		        <option value="09">09</option>
+		        <option value="10">10</option>
+		        <option value="11">11</option>
+		        <option value="12">12</option>
+		      </select>
+		    </div>
+		    <div class="col-md-2">
+		      <input type="text" name="birthdd" maxlength="2" class="form-control" placeholder="일" required>
+		    </div>
+		    <div class="invalid-feedback">
+		      생일을 입력해주세요.
+		    </div>
+		  </div>
+		
+		  <div class="row g-3 mb-3 align-items-center">
+		    <label for="email" class="form-label">이메일<span class="text-body-secondary"></span></label>
+		    <div class="col-md-2">
+		      <input type="text" class="form-control" id="mail1" name="mail1" placeholder="you" required>
+		    </div>
+		    <div class="col-auto align-self-center">
+		      @
+		    </div>
+		    <div class="col-md-3">
+		      <select name="mail2" class="form-select" id="mail2">
+		        <option value="naver.com">naver.com</option>
+		        <option value="daum.net">daum.net</option>
+		        <option value="gmail.com">gmail.com</option>
+		        <option value="nate.com">nate.com</option>
+		      </select>
+		    </div>
+		    <div class="invalid-feedback">
+		      이메일을 입력해주세요.
+		    </div>
+		  </div>
+		
+		  <div class="row g-3 mb-3">
+		    <label for="phone1" class="form-label">전화번호<span class="text-body-secondary"></span></label>
+		    <div class="col-md-2">
+		      <select class="form-select" id="num1" name="phone1" required>
+		        <option value="010">010</option>
+		        <option value="011">011</option>
+		        <option value="016">016</option>
+		        <option value="017">017</option>
+		        <option value="019">019</option>
+		      </select>
+		    </div>
+		    <div class="col-md-2">
+		      <input type="text" maxlength="4" size="4" name="phone2" class="form-control" id="phone2" required>
+		    </div>
+		    <div class="col-md-2">
+		      <input type="text" maxlength="4" size="4" name="phone3" class="form-control" id="phone3" required>
+		    </div>
+		    <div class="invalid-feedback">
+		      전화번호를 입력해주세요.
+		    </div>
+		  </div>
+		
+		  <div class="row g-3 mb-3">
+		    <div class="col-6">
+		      <label for="address" class="form-label">주소<span class="text-body-secondary"></span></label>
+		      <input type="text" class="form-control custom-width mb-custom" id="address1" name="address1" placeholder="주소" required>
+		    </div>
+		  </div>
+		  <div class="row g-3 mb-3">
+		    <div class="col-6">
+		      <input type="text" class="form-control custom-width" id="address2" name="address2" placeholder="상세주소" required>
+		    </div>
+		    <div class="invalid-feedback">
+		      주소를 입력해주세요.
+		    </div>
+		  </div>
+		
+		  <hr class="my-4">
+		  <h4 class="mb-3">결제정보(선택)</h4>
+		  <div class="my-3">
+		    <div class="form-check">
+		      <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked>
+		      <label class="form-check-label" for="credit">신용카드</label>
+		    </div>
+		    <div class="container">
+		      <div class="row gy-3 my-3">
+		        <!-- 카드 종류와 카드 별명을 나란히 배치 -->
+		        <div class="row my-3">
+		          <div class="col-md-3">
+		            <label for="card_type" class="form-label">카드 종류<span class="text-body-secondary"></span></label>
+		            <select class="form-select" id="card_type" name="card_type">
+		              <option value="KB">KB국민카드</option>
+		              <option value="SH">신한카드</option>
+		              <option value="HA">하나카드</option>
+		              <option value="RD">롯데카드</option>
+		              <option value="BC">BC카드</option>
+		              <option value="NH">NH농협카드</option>
+		              <option value="SS">삼성카드</option>
+		              <option value="HD">현대카드</option>
+		            </select>
+		          </div>
+		          <div class="col-md-3">
+		            <label for="cc_name" class="form-label">카드 별명</label>
+		            <input type="text" class="form-control" id="cc-name" name="cc-name" placeholder="">
+		          </div>
+		        </div>
+		      </div>
+		      <div class="col-md-6">
+		        <label for="cc_number" class="form-label">카드 번호</label>
+		        <div class="d-flex">
+		          <input type="text" maxlength="4" size="4" name="cc_num_1" class="form-control me-2" id="cc_num_1">
+		          <span class="mx-2">-</span>
+		          <input type="password" maxlength="4" size="4" name="cc_num_2" class="form-control me-2" id="cc_num_2">
+		          <span class="mx-2">-</span>
+		          <input type="password" maxlength="4" size="4" name="cc_num_3" class="form-control me-2" id="cc_num_3">
+		          <span class="mx-2">-</span>
+		          <input type="text" maxlength="4" size="4" name="cc_num_4" class="form-control" id="cc_num_4">
+		        </div>
+		      </div>
+		
+		      <div class="row gy-3 my-3">
+		        <!-- 만기일과 CVC를 나란히 배치 -->
+		        <div class="col-md-3">
+		          <label for="cc_expiration" class="form-label">만기일</label>
+		          <div class="d-flex">
+		            <select class="form-select me-2" id="cc_expiration_yy" name="cc_expiration_yy">
+		              <option value="">년</option>
+		              <option value="2024">2024</option>
+		              <option value="2025">2025</option>
+		              <option value="2026">2026</option>
+		              <option value="2027">2027</option>
+		              <option value="2028">2028</option>
+		            </select>
+		            <select class="form-select" id="cc_expiration_mm" name="cc_expiration_mm">
+		              <option value="">월</option>
+		              <option value="01">01</option>
+		              <option value="02">02</option>
+		              <option value="03">03</option>
+		              <option value="04">04</option>
+		              <option value="05">05</option>
+		              <option value="06">06</option>
+		              <option value="07">07</option>
+		              <option value="08">08</option>
+		              <option value="09">09</option>
+		              <option value="10">10</option>
+		              <option value="11">11</option>
+		              <option value="12">12</option>
+		            </select>
+		          </div>
+		        </div>
+		        <div class="col-md-3">
+		          <label for="cvc" class="form-label">CVC</label>
+		          <input type="text" maxlength="3" size="3" name="cvc" class="form-control me-2" id="cvc" pattern="\d{3}" inputmode="numeric">
+		        </div>
+		      </div>
+		    </div>
+		    <div class="form-check">
+		      <input type="checkbox" class="form-check-input" id="save-info">
+		      <label class="form-check-label" for="save-info">기본결제정보로 저장합니다.</label>
+		    </div>
+		    <hr class="my-4">
+		    <button class="w-100 btn btn-primary btn-lg" type="submit">회원가입</button>
+		</form>
 
-          <div class="row g-3 mb-3">
-            <div class="col-6">
-              <label for="password" class="form-label">비밀번호<span class="text-body-secondary"></span></label>
-              <input type="password" class="form-control custom-width" id="password" name="password" placeholder="password" required>
-            </div>
-          </div>
-
-          <div class="row g-3 mb-3">
-            <div class="col-6">
-              <label for="password_confirm" class="form-label">비밀번호 확인<span class="text-body-secondary"></span></label>
-              <input type="password" class="form-control custom-width" id="password_confirm" name="password_confirm" placeholder="password confirm" required>
-            </div>
-          </div>
-
-          <div class="row g-3 mb-3">
-            <div class="col-6">
-              <label for="name" class="form-label">성명<span class="text-body-secondary"></span></label>
-              <input type="text" class="form-control custom-width" id="name" name="name" placeholder="name" required>
-            </div>
-            <div class="invalid-feedback">
-              성명을 입력해주세요.
-            </div>
-          </div>
-
-          <div class="row g-3 mb-3">
-            <label for="gender" class="form-label">성별<span class="text-body-secondary"></span></label>
-            <div class="col-sm-2">
-              <input name="gender" type="radio" value="남" /> 남
-            </div>
-            <div class="col-sm-2">
-              <input name="gender" type="radio" value="여" /> 여
-            </div>
-            <div class="invalid-feedback">
-              성별을 선택해주세요.
-            </div>
-          </div>
-
-          <div class="row g-3 mb-3">
-            <label for="birthday" class="form-label">생일<span class="text-body-secondary"></span></label>
-            <div class="col-md-2">
-              <input type="text" name="birthyy" maxlength="4" class="form-control" placeholder="년(4자)" required>
-            </div>
-            <div class="col-md-2">
-              <select name="birthmm" class="form-select" required>
-                <option value="">월</option>
-                <option value="01">01</option>
-                <option value="02">02</option>
-                <option value="03">03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
-                <option value="09">09</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-              </select>
-            </div>
-            <div class="col-md-2">
-              <input type="text" name="birthdd" maxlength="2" class="form-control" placeholder="일" required>
-            </div>
-            <div class="invalid-feedback">
-              생일을 입력해주세요.
-            </div>
-          </div>
-
-          <div class="row g-3 mb-3 align-items-center">
-            <label for="email" class="form-label">이메일<span class="text-body-secondary"></span></label>
-            <div class="col-md-2">
-              <input type="text" class="form-control" id="email1" name="mail1" placeholder="you" required>
-            </div>
-            <div class="col-auto align-self-center">
-              @
-            </div>
-            <div class="col-md-3">
-              <select name="mail2" class="form-select" id="mail2">
-                <option value="naver.com">naver.com</option>
-                <option value="daum.net">daum.net</option>
-                <option value="gmail.com">gmail.com</option>
-                <option value="nate.com">nate.com</option>
-              </select>
-            </div>
-            <div class="invalid-feedback">
-              이메일을 입력해주세요.
-            </div>
-          </div>
-
-          <div class="row g-3 mb-3">
-            <label for="phone1" class="form-label">전화번호<span class="text-body-secondary"></span></label>
-            <div class="col-md-2">
-              <select class="form-select" id="num1" name="num1" required>
-                <option value="010">010</option>
-                <option value="011">011</option>
-                <option value="016">016</option>
-                <option value="017">017</option>
-                <option value="019">019</option>
-              </select>
-            </div>
-            <div class="col-md-2">
-              <input type="text" maxlength="4" size="4" name="phone2" class="form-control" id="num2" required>
-            </div>
-            <div class="col-md-2">
-              <input type="text" maxlength="4" size="4" name="phone3" class="form-control" id="num3" required>
-            </div>
-            <div class="invalid-feedback">
-              전화번호를 입력해주세요.
-            </div>
-          </div>
-
-          <div class="row g-3 mb-3">
-            <div class="col-6">
-              <label for="address" class="form-label">주소<span class="text-body-secondary"></span></label>
-              <input type="text" class="form-control custom-width mb-custom" id="address2" name="address2" placeholder="주소" required>
-            </div>
-          </div>
-          <div class="row g-3 mb-3">
-            <div class="col-6">
-              <input type="text" class="form-control custom-width" id="address3" name="address3" placeholder="상세주소" required>
-            </div>
-            <div class="invalid-feedback">
-              주소를 입력해주세요.
-            </div>
-          </div>
-
-          <hr class="my-4">
-          <h4 class="mb-3">결제정보(선택)</h4>
-          <div class="my-3">
-            <div class="form-check">
-              <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked>
-              <label class="form-check-label" for="credit">신용카드</label>
-            </div>
-            <div class="container">
-              <div class="row gy-3 my-3">
-                <!-- 카드 종류와 카드 별명을 나란히 배치 -->
-                <div class="row my-3">
-                  <div class="col-md-3">
-                    <label for="card-type" class="form-label">카드 종류<span class="text-body-secondary"></span></label>
-                    <select class="form-select" id="card-type" name="card-type">
-                      <option value="KB">KB국민카드</option>
-                      <option value="SH">신한카드</option>
-                      <option value="HA">하나카드</option>
-                      <option value="RD">롯데카드</option>
-                      <option value="BC">BC카드</option>
-                      <option value="NH">NH농협카드</option>
-                      <option value="SS">삼성카드</option>
-                      <option value="HD">현대카드</option>
-                    </select>
-                  </div>
-                  <div class="col-md-3">
-                    <label for="cc_name" class="form-label">카드 별명</label>
-                    <input type="text" class="form-control" id="cc-name" name="cc-name" placeholder="">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <label for="cc_number" class="form-label">카드 번호</label>
-                <div class="d-flex">
-                  <input type="text" maxlength="4" size="4" name="cc_num_1" class="form-control me-2" id="cc-number-1">
-                  <span class="mx-2">-</span>
-                  <input type="password" maxlength="4" size="4" name="cc_num_2" class="form-control me-2" id="cc-number-2">
-                  <span class="mx-2">-</span>
-                  <input type="password" maxlength="4" size="4" name="cc_num_3" class="form-control me-2" id="cc-number-3">
-                  <span class="mx-2">-</span>
-                  <input type="text" maxlength="4" size="4" name="cc_num_4" class="form-control" id="cc-number-4">
-                </div>
-              </div>
-
-              <div class="row gy-3 my-3">
-                <!-- 만기일과 CVC를 나란히 배치 -->
-                <div class="col-md-3">
-                  <label for="cc_expiration" class="form-label">만기일</label>
-                  <div class="d-flex">
-                    <select class="form-select me-2" id="cc_expiration_yy" name="cc_expiration_yy">
-                      <option value="">년</option>
-                      <option value="2024">2024</option>
-                      <option value="2025">2025</option>
-                      <option value="2026">2026</option>
-                      <option value="2027">2027</option>
-                      <option value="2028">2028</option>
-                    </select>
-                    <select class="form-select" id="cc_expiration_mm" name="cc_expiration_mm">
-                      <option value="">월</option>
-                      <option value="01">01</option>
-                      <option value="02">02</option>
-                      <option value="03">03</option>
-                      <option value="04">04</option>
-                      <option value="05">05</option>
-                      <option value="06">06</option>
-                      <option value="07">07</option>
-                      <option value="08">08</option>
-                      <option value="09">09</option>
-                      <option value="10">10</option>
-                      <option value="11">11</option>
-                      <option value="12">12</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <label for="CVC" class="form-label">CVC</label>
-                  <input type="text" maxlength="3" size="3" name="CVC" class="form-control me-2" id="CVC" pattern="\d{3}" inputmode="numeric">
-                </div>
-              </div>
-            </div>
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="save-info">
-              <label class="form-check-label" for="save-info">기본결제정보로 저장합니다.</label>
-            </div>
-            <hr class="my-4">
-            <button class="w-100 btn btn-primary btn-lg" type="submit">회원가입</button>
-        </form>
       </main>
     </div>
     <jsp:include page="../footer.jsp" />

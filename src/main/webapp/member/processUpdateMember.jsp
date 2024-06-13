@@ -1,7 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ page import="java.util.*"%>
+<%@ page import="java.util.*, java.sql.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<%@ include file="../dbconn.jsp" %>
 <%
     request.setCharacterEncoding("UTF-8");
 
@@ -28,11 +29,9 @@
     String cardName = request.getParameter("cc_name");
     String cardNumber = request.getParameter("cc_num_1") + "-" + request.getParameter("cc_num_2") + "-" + request.getParameter("cc_num_3") + "-" + request.getParameter("cc_num_4");
     String cardExpiration = request.getParameter("cc_expiration_yy") + "/" + request.getParameter("cc_expiration_mm");
-    String cvc = request.getParameter("CVC");
+    String cvc = request.getParameter("cvc");
 
-    Date currentDatetime = new Date(System.currentTimeMillis());
-    java.sql.Date sqlDate = new java.sql.Date(currentDatetime.getTime());
-    java.sql.Timestamp timestamp = new java.sql.Timestamp(currentDatetime.getTime());
+    java.sql.Timestamp timestamp = new java.sql.Timestamp(System.currentTimeMillis());
 
     // 디버깅 출력
     System.out.println("id: " + id);
@@ -51,14 +50,10 @@
     System.out.println("timestamp: " + timestamp);
 %>
 
-<sql:setDataSource var="dataSource"
-    url="jdbc:mysql://localhost:3306/propertyDB"
-    driver="com.mysql.jdbc.Driver" user="root" password="1234" />
-
 <sql:update dataSource="${dataSource}" var="resultSet">
-    INSERT INTO member (id, password, name, gender, birth, mail, phone, address, cardType, cardName, cardNumber, cardExpiration, cvc, regist_day)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    <sql:param value="<%=id%>" />
+    UPDATE member 
+    SET password = ?, name = ?, gender = ?, birth = ?, mail = ?, phone = ?, address = ?, cardType = ?, cardName = ?, cardNumber = ?, cardExpiration = ?, cvc = ?, regist_day = ?
+    WHERE id = ?
     <sql:param value="<%=password%>" />
     <sql:param value="<%=name%>" />
     <sql:param value="<%=gender%>" />
@@ -66,12 +61,13 @@
     <sql:param value="<%=mail%>" />
     <sql:param value="<%=phone%>" />
     <sql:param value="<%=address%>" />
-    <sql:param value="<%=cardType%>" />
-    <sql:param value="<%=cardName%>" />
-    <sql:param value="<%=cardNumber%>" />
-    <sql:param value="<%=cardExpiration%>" />
-    <sql:param value="<%=cvc%>" />
+    <sql:param value="<%=cardType != null ? cardType : "" %>" />
+    <sql:param value="<%=cardName != null ? cardName : "" %>" />
+    <sql:param value="<%=cardNumber != null ? cardNumber : "" %>" />
+    <sql:param value="<%=cardExpiration != null ? cardExpiration : "" %>" />
+    <sql:param value="<%=cvc != null ? cvc : "" %>" />
     <sql:param value="<%=timestamp%>" />
+    <sql:param value="<%=id%>" />
 </sql:update>
 
 <c:if test="${resultSet >= 1}">

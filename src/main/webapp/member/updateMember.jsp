@@ -1,15 +1,13 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<%@ include file="../dbconn.jsp" %>
 <html lang="ko" data-bs-theme="auto">
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <%
     String sessionId = (String) session.getAttribute("sessionId");
 %>
-<sql:setDataSource var="dataSource"
-    url="jdbc:mysql://localhost:3306/propertyDB"
-    driver="com.mysql.jdbc.Driver" user="root" password="1234" />
 
 <sql:query dataSource="${dataSource}" var="resultSet">
    SELECT * FROM MEMBER WHERE ID=?

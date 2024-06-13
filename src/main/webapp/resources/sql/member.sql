@@ -18,6 +18,6 @@ CREATE TABLE member (
     PRIMARY KEY(id)
 ) DEFAULT CHARSET=utf8;
 
-SELECT * FROM member;
+SELECT id FROM member;
 
 DROP TABLE member;
