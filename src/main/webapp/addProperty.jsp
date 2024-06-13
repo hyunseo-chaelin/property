@@ -2,7 +2,6 @@
 <%@ include file="../menu.jsp" %>
 <script type="text/javascript" src="./resources/js/validation.js"></script>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <!doctype html>
 <html lang="ko" data-bs-theme="auto">
 <head>
@@ -102,29 +101,6 @@
         }
     }
 
-    function checkPropertyId() {
-        var propertyId = document.getElementById('b_id').value;
-        if (!b_id) {
-            alert("매물 아이디를 입력하세요.");
-            return;
-        }
-
-        $.ajax({
-            url: 'checkPropertyId.jsp',
-            type: 'POST',
-            data: { b_id: b_id },
-            success: function(response) {
-                if (response.trim() === 'duplicate') {
-                    alert("이미 사용 중인 매물 아이디입니다.");
-                } else {
-                    alert("사용 가능한 매물 아이디입니다.");
-                }
-            },
-            error: function() {
-                alert("매물 아이디 중복 검사에 실패했습니다. 나중에 다시 시도해주세요.");
-            }
-        });
-    }
     </script>
 
     <style>
@@ -188,7 +164,6 @@
     <link href="checkout.css" rel="stylesheet">
 </head>
 <body class="bg-body-tertiary">
-    <!-- 관리자 로그아웃 -->
     <div class="row align-items-md-strech">
         <div class="text-end">
             <a href="logout.jsp" class="btn btn-sm btn-success pull right">관리자 로그아웃</a>
@@ -222,7 +197,6 @@
                         <label class="form-label"><fmt:message key="propertyID" /></label>
                         <div class="input-group">
                             <input type="text" class="form-control" name="propertyId" id="propertyId" placeholder="propertyID" required>
-                            <button class="btn btn-outline-secondary" type="button" id="propertyID-check" onclick="checkPropertyId()">중복 검색</button>
                         </div>
                         <div class="invalid-feedback">
                             매물 아이디를 입력해주세요.

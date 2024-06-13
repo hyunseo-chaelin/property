@@ -11,7 +11,7 @@
 
 <sql:setDataSource var="dataSource"
 	url="jdbc:mysql://localhost:3306/propertyDB"
-	driver="com.mysql.jdbc.Driver" user="root" password="chae0123" />
+	driver="com.mysql.jdbc.Driver" user="root" password="1234" />
 
 <sql:query dataSource="${dataSource}" var="resultSet">
    	SELECT * FROM MEMBER WHERE ID=? and password=?  

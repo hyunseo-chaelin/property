@@ -8,7 +8,7 @@
 <%
     request.setCharacterEncoding("UTF-8");
 
-    String realFolder = "C:\\Users\\rin75\\git\\property\\src\\main\\webapp\\resources\\images";
+    String realFolder = "C:\\Users\\고현서\\workspace_webServer\\property\\src\\main\\webapp\\resources\\images";
     int maxSize = 5 * 1024 * 1024;
     String encType = "utf-8";
 

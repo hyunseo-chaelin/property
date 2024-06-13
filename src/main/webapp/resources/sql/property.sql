@@ -18,4 +18,7 @@ CREATE TABLE IF NOT EXISTS property (
 
 show tables;
 DESC property;
+SELECT * FROM property;
+
+DELETE FROM property WHERE b_id='PROP1645';
 

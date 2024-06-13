@@ -2,7 +2,6 @@
 <%@ page import="java.sql.*" %>
 <%@ include file="menu.jsp" %>
 <%@ include file="dbconn.jsp" %>
-
 <!DOCTYPE html>
 <html lang="ko" data-bs-theme="auto">
 <head>
@@ -11,7 +10,21 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Detail</title>
+    <%
+    String id = request.getParameter("id");
+
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
     
+    try {
+        String sql = "SELECT * FROM property WHERE b_id=?";
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, id);
+        rs = pstmt.executeQuery();
+        if (rs.next()) {
+            String city = rs.getString("b_city");
+            String district = rs.getString("b_district");
+	%>
     <script>
     const districts = {
         서울시: [
@@ -89,12 +102,7 @@
         ]
     };
 
-    window.onload = function() {
-        const district = '<%= b_district.replace("\\", "\\\\").replace("\'", "\\\'").replace("\"", "\\\"") %>';
-        updateDistricts(district);
-    }
-
-    function updateDistricts(selectedDistrict) {
+    function updateDistricts(selectedDistrict = "") {
         const city = document.getElementById('city').value;
         const districtSelect = document.getElementById('district');
 
@@ -112,19 +120,18 @@
             });
         }
     }
+
+    window.onload = function() {
+        const initialCity = "<%= rs.getString("b_city") %>";
+        const initialDistrict = "<%= rs.getString("b_district") %>";
+        document.getElementById('city').value = initialCity;
+        updateDistricts(initialDistrict);
+    }
     </script>
-    
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <link rel="stylesheet" href="./resources/css/bootstrap.min.css" />
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-    
     <link href="css/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
     <style>
         .form-group {
             display: flex;
@@ -135,11 +142,11 @@
             padding: 10px;
             border: 1px solid #ccc;
             font-size: 16px;
-            appearance: none; /* 브라우저 기본 스타일 제거 */
+            appearance: none; 
             -webkit-appearance: none;
             -moz-appearance: none;
             margin-right: 10px;
-            width: 200px; /* 선택 상자의 너비를 넓힘 */
+            width: 200px; 
         }
         select:focus {
             outline: none;
@@ -153,49 +160,31 @@
     </style>
 </head>
 <body>
-<%
-    String id = request.getParameter("id");
-
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
-    
-    try {
-        String sql = "SELECT * FROM property WHERE b_id=?";
-        pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, id);
-        rs = pstmt.executeQuery();
-        if (rs.next()) {
-            String city = rs.getString("b_city");
-            String district = rs.getString("b_district");
-%>
-
-
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <form name="newProperty" action="./processUpdateProperty.jsp" method="post" enctype="multipart/form-data">
         <input type="hidden" name="propertyId" value="<%= id %>">
-        
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-5">
-                    <img class="card-img-top mb-5 mb-md-0" src="./resources/images/<%= rs.getString("b_fileName") %>" alt="<%= rs.getString("b_name") %>" />
+                    <img class="card-img-top mb-5 mb-md-0" src="./resources/images/<%= rs.getString("b_fileName") %>?t=<%= System.currentTimeMillis() %>" alt="<%= rs.getString("b_name") %>" />
                 </div>
-          <div class="col-md-6">
-    <div class="row g-3 mb-3">
-        <div class="col-12">
-            <label for="cityselect" class="form-label fw-bold">매물 위치</label>
-            <div class="d-flex">
- <select class="form-select form-select-sm me-2" id="city" name="city" required onchange="updateDistricts()">
-    <option value="">도시 선택</option>
-    <option value="서울시" <%= "서울시".equals(city) ? "selected" : "" %>>서울시</option>
-    <option value="경기도" <%= "경기도".equals(city) ? "selected" : "" %>>경기도</option>
-</select>
-<select class="form-select form-select-sm" id="district" name="district" required>
-    <option value="">구 선택</option>
-</select>
-
-            </div>
-        </div>
-    </div>
+		          <div class="col-md-6">
+				    <div class="row g-3 mb-3">
+				        <div class="col-12">
+				            <label for="cityselect" class="form-label fw-bold">매물 위치</label>
+				            <div class="d-flex">
+							 <select class="form-select form-select-sm me-2" id="city" name="city" required onchange="updateDistricts()">
+							    <option value="">도시 선택</option>
+							    <option value="서울시" <%= "서울시".equals(city) ? "selected" : "" %>>서울시</option>
+							    <option value="경기도" <%= "경기도".equals(city) ? "selected" : "" %>>경기도</option>
+							</select>
+							<select class="form-select form-select-sm" id="district" name="district" required>
+							    <option value="">구 선택</option>
+							</select>
+		
+			            </div>
+			        </div>
+			    </div>
                     <div class="form-group row mb-3">
                         <label for="name" class="col-sm-2 col-form-label fw-bold">매물명</label>
                         <div class="col-sm-10">
@@ -228,11 +217,11 @@
                         </div>
                     </div>
                     
-<div class="form-group row mb-3">
-  <label for="area" class="col-sm-2 col-form-label fw-bold">면적<span class="text-body-secondary"></label>
-  <div class="col-sm-10">
-<input type="text" name="area" id="area" class="form-control" value='<%= rs.getString("b_area") %>'>
-</div>
+					<div class="form-group row mb-3">
+					  <label for="area" class="col-sm-2 col-form-label fw-bold">면적<span class="text-body-secondary"></label>
+					  <div class="col-sm-10">
+					<input type="text" name="area" id="area" class="form-control" value='<%= rs.getString("b_area") %>'>
+					</div>
                 
                     <div class="form-group row mb-3">
                         <label for="description" class="col-sm-2 col-form-label fw-bold">상세설명</label>
@@ -240,19 +229,16 @@
                             <textarea name="description" id="description" class="form-control" rows="5"><%= rs.getString("b_description") %></textarea>
                         </div>
                         
-                                      <div class="form-group row mb-3">
+                      <div class="form-group row mb-3">
                       <label for="filename" class="col-sm-2 col-form-label fw-bold">이미지</label>
-                      
                       <input type="file" class="form-control custom-width mb-custom" name="filename" id="filename" class="form-control">
-                </div>
-                       
+                	</div> 
                     </div>
-
-<div class="form-group row mb-3">
-    <div class="col-sm-10 offset-sm-2">
-        <input type="submit" class="btn btn-primary" value="등록">
-    </div>
-</div>
+					<div class="form-group row mb-3">
+					    <div class="col-sm-10 offset-sm-2">
+					        <input type="submit" class="btn btn-primary" value="등록">
+					    </div>
+					</div>
                     
                 </div>
             </div>
@@ -275,12 +261,9 @@
 %>
 
 <jsp:include page="footer.jsp" />
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
 <script src="js/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-
 </body>
 </html>
