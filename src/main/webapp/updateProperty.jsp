@@ -12,7 +12,7 @@
     <meta name="author" content="" />
     <title>Detail</title>
     
-        <script>
+    <script>
     const districts = {
         서울시: [
             { value: "강남구", text: "강남구" },
@@ -98,10 +98,8 @@
         const city = document.getElementById('city').value;
         const districtSelect = document.getElementById('district');
 
-        // 기존 옵션 삭제
         districtSelect.innerHTML = '<option value="">구/군 선택</option>';
 
-        // 새로운 옵션 추가
         if (city && districts[city]) {
             districts[city].forEach(district => {
                 const option = document.createElement('option');
@@ -117,17 +115,13 @@
     </script>
     
     
-    <!-- Bootstrap CSS 파일 포함 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <link rel="stylesheet" href="./resources/css/bootstrap.min.css" />
     
-    <!-- Bootstrap icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     
-    <!-- Core theme CSS (includes Bootstrap) -->
     <link href="css/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
@@ -176,7 +170,6 @@
 %>
 
 
-<!-- Product section -->
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <form name="newProperty" action="./processUpdateProperty.jsp" method="post" enctype="multipart/form-data">
@@ -240,10 +233,6 @@
   <div class="col-sm-10">
 <input type="text" name="area" id="area" class="form-control" value='<%= rs.getString("b_area") %>'>
 </div>
-
-
-
-
                 
                     <div class="form-group row mb-3">
                         <label for="description" class="col-sm-2 col-form-label fw-bold">상세설명</label>
@@ -258,7 +247,7 @@
                 </div>
                        
                     </div>
-                    <!-- 상세설명 입력란 아래에 등록 버튼 추가 -->
+
 <div class="form-group row mb-3">
     <div class="col-sm-10 offset-sm-2">
         <input type="submit" class="btn btn-primary" value="등록">
@@ -287,9 +276,8 @@
 
 <jsp:include page="footer.jsp" />
 
-<!-- Bootstrap core JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS -->
+
 <script src="js/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
